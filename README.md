@@ -1,4 +1,4 @@
-# Laboratorio-4
+# Laboratorio-4 FATIGA MUSCULAR
 ## Configuración inicial
 ```matlab
 % ======= CONFIGURACIÓN =======
