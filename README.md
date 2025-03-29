@@ -1,5 +1,6 @@
-# Laboratorio-4
+# Laboratorio-4 FATIGA MUSCULAR
 ## Configuración inicial
+### En esta parte se prepara el codigo para la captura de la señal a traves del DAQ. Se configura la frecuencia de muestreo, la duracion de la señal y el archivo de salida deseado.
 ```matlab
 % ======= CONFIGURACIÓN =======
 device = 'Dev3';     % Nombre de tu DAQ
@@ -28,6 +29,7 @@ ylim([-1, 5]);  % Ajuste de voltaje según rango esperado
 grid on;
 ```
 ## Adquisición y guardado
+### En esta parte previa de la adquisicion de la señal, se realiza una etapa de guardado de datos por vectores en un archivo.csv
 ```matlab
 % ======= ADQUISICIÓN Y GUARDADO =======
 disp('Iniciando adquisición...');
@@ -48,6 +50,7 @@ while seconds(datetime('now') - startTime) < duration
 end
 ```
 ## Filtrado de la señal
+### En esta etapa de codigo se filtra la señal capturada, teniendo como banda de trabajo desde los 20 Hz hasta los 450 Hz.
 ```matlab
 % ======= FILTRADO DE SEÑAL =======
 disp('Aplicando filtros...');
@@ -65,6 +68,7 @@ filteredSignal = filtfilt(bHigh, aHigh, signalVec);
 filteredSignal = filtfilt(bLow, aLow, filteredSignal);
 ```
 ## Guardar datos
+### Como etapa final del codigo en MATLAB, se realiza el guardado de los datos ya filtrados en el archivo de salida
 ```matlab
 % ======= GUARDAR LOS DATOS FILTRADOS =======
 disp('Adquisición finalizada. Guardando archivo...');
@@ -84,6 +88,31 @@ grid on;
 clear d;
 ```
 ## Librerias
+```python
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from scipy.signal import get_window, spectrogram, hilbert
+from scipy.stats import ttest_ind
+```
+## Cargar datos donde se guardo la señal
+```python
+# ======= CARGAR DATOS =======
+archivo = "emg_signal_filtered.csv"  # Nombre del archivo CSV
+datos = pd.read_csv(archivo)  # Leer archivo CSV
+archivo2= "emg_signal_filtered1.csv"  
+datos2 = pd.read_csv(archivo)
+```
+## Establecer ejes
+```python
+# Extraer columnas
+tiempo = datos["Tiempo (s)"]
+voltaje = datos["Voltaje Filtrado (V)"]
+
+tiempo2 = datos2["Tiempo (s)"]
+voltaje2 = datos2["Voltaje Filtrado (V)"]
+```
+##Librerias
 ```python
 import numpy as np
 import pandas as pd
